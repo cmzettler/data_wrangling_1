@@ -121,3 +121,28 @@ pulse_df = read_sas("./data/public_pulse_data.sas7bdat")
 ```
 
 Something is wrong here - he's going to try to work on this
+
+## why to never use `read.csv`
+
+`read.csv` always reads everything as a dataframe instead of a tibble, which means it looks less nice. 
+
+```{r, eval = FALSE}
+liters_df_base = read.csv("data/FAS_litters.csv")
+```
+
+Try to remember to do the _ instead of . 
+
+## Last thing - exporting data 
+
+there's a good way!
+
+```{r}
+write_csv(fellow_df, "data/fellowship_words.csv")
+```
+
+writing data out instead of reading data in 
+
+You have to write out the data frame name = reading the stuff and then use the data frame name for everything else 
+
+
+
