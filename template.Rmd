@@ -3,19 +3,61 @@ title: "Simple document"
 output: github_document
 ---
 
-I'm an R Markdown document! 
-
-# Section 1
-
-Here's a **code chunk** that samples from 
-a _normal distribution_:
-
-```{r}
-samp = rnorm(100)
-length(samp)
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
 ```
 
-# Section 2
+## Import some data
 
-I can take the mean of the sample, too!
-The mean is `r mean(samp)`.
+I want to import `FAS_litters.csv`. 
+
+Relative paths = giving directions from where I am now to where I want to be 
+  As long as I'm sharing this whole folder, I can send this to anyone 
+Absolute paths = absolute directions from the beginning of your computer 
+
+```{r}
+liters_df = read_csv("data/FAS_litters.csv")
+```
+This imported the dataset into R. 
+This assigned litters_df as the name of that data into the R. 
+
+Now I want better names 
+- backticks around litter number, etc. --> you can't have a variable name with spaces in it 
+
+```{r}
+names(liters_df)
+
+liters_df = janitor::clean_names(liters_df)
+
+names(liters_df)
+```
+
+1) shows names in data frame
+2) liters_df replaces the old data frame with the cleaned one & then cleans names of variables (this is in the janitor package --> since we only need the clean names function, we only call that function since the janitor package is really big)
+3) tests to make sure it works! 
+
+```{r}
+liters_df
+
+head(liters_df)
+tail(liters_df)
+```
+
+This is showing me the variable names, the 10 first rows, and how many additional rows there are 
+Second row is also telling us the types of variables (character vs. double)
+
+Prints out the top and bottom to make sure the beginning and end are "normal" 
+
+```{r, eval=FALSE}
+view(liters_df)
+```
+
+Use this to view all the data (in an excel within R)
+
+eval = FALSE --> This is interactive, but can mess up the rmarkdown, so make sure it doesn't show it in the Knitted doc 
+
+```{r}
+skimr::skim(liters_df)
+```
+Shows a little information about everything
+
