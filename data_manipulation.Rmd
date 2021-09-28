@@ -1,0 +1,34 @@
+---
+title: "Simple document"
+output: github_document
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
+
+```
+
+## Import some data
+
+I want to import `FAS_litters.csv`. 
+
+```{r}
+litters_df = read_csv("data/FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df) 
+
+pups_df = read_csv("data/FAS_pups.csv")
+pups_df = janitor::clean_names(pups_df)
+```
+
+## `select`
+
+Let's select some columns 
+
+```{r}
+select(litters_df, group, litter_number) 
+select(litters_df, group, gd0_weight, gd18_weight)
+
+select(litters_df, group, gd0_weight:gd_of_birth)
+```
+
+select(litters, group, litter_number)
