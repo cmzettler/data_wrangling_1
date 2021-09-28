@@ -100,8 +100,39 @@ Two equal signs is a logical operator vs. one = assigns a variable
 
 Filter out NA/ missing values --> drop_na(litters_df) - drops all rows with any missing values OR drop_na(litters_df, gd_of_birth) - drops all rows with missing values for this variable 
 
+## `mutate` 
 
+Let's add or change columns! 
 
+```{r}
+mutate(litters_df, weight_change = gd18_weight - gd0_weight)
+```
+
+Use litters data frame and use this new variable 
+
+Can often separate across lines 
+
+```{r}
+mutate(
+  litters_df, 
+  weight_change = gd18_weight - gd0_weight, 
+  group = str_to_lower(group))
+```
+
+str_to_lower - makes all values in that variable lowercase 
+
+## `arrange` 
+
+Let's arrange the data. 
+
+```{r}
+arrange(litters_df, gd0_weight)
+arrange(litters_df, desc(gd0_weight))
+
+arrange(litters_df, gd_of_birth, gd0_weight) 
+```
+
+Organizes first by gd of birth and then gd0 weight 
 
 Question - where does the dataframe go? if you use litters_df, is that edited? 
 

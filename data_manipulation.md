@@ -428,5 +428,124 @@ Filter out NA/ missing values –&gt; drop\_na(litters\_df) - drops all
 rows with any missing values OR drop\_na(litters\_df, gd\_of\_birth) -
 drops all rows with missing values for this variable
 
+## `mutate`
+
+Let’s add or change columns!
+
+``` r
+mutate(litters_df, weight_change = gd18_weight - gd0_weight)
+```
+
+    ## # A tibble: 49 × 9
+    ##    group litter_number   gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>                <dbl>       <dbl>       <dbl>           <dbl>
+    ##  1 Con7  #85                   19.7        34.7          20               3
+    ##  2 Con7  #1/2/95/2             27          42            19               8
+    ##  3 Con7  #5/5/3/83/3-3         26          41.4          19               6
+    ##  4 Con7  #5/4/2/95/2           28.5        44.1          19               5
+    ##  5 Con7  #4/2/95/3-3           NA          NA            20               6
+    ##  6 Con7  #2/2/95/3-2           NA          NA            20               6
+    ##  7 Con7  #1/5/3/83/3-3/2       NA          NA            20               9
+    ##  8 Con8  #3/83/3-3             NA          NA            20               9
+    ##  9 Con8  #2/95/3               NA          NA            20               8
+    ## 10 Con8  #3/5/2/2/95           28.5        NA            20               8
+    ## # … with 39 more rows, and 3 more variables: pups_dead_birth <dbl>,
+    ## #   pups_survive <dbl>, weight_change <dbl>
+
+Use litters data frame and use this new variable
+
+Can often separate across lines
+
+``` r
+mutate(
+  litters_df, 
+  weight_change = gd18_weight - gd0_weight, 
+  group = str_to_lower(group))
+```
+
+    ## # A tibble: 49 × 9
+    ##    group litter_number   gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>                <dbl>       <dbl>       <dbl>           <dbl>
+    ##  1 con7  #85                   19.7        34.7          20               3
+    ##  2 con7  #1/2/95/2             27          42            19               8
+    ##  3 con7  #5/5/3/83/3-3         26          41.4          19               6
+    ##  4 con7  #5/4/2/95/2           28.5        44.1          19               5
+    ##  5 con7  #4/2/95/3-3           NA          NA            20               6
+    ##  6 con7  #2/2/95/3-2           NA          NA            20               6
+    ##  7 con7  #1/5/3/83/3-3/2       NA          NA            20               9
+    ##  8 con8  #3/83/3-3             NA          NA            20               9
+    ##  9 con8  #2/95/3               NA          NA            20               8
+    ## 10 con8  #3/5/2/2/95           28.5        NA            20               8
+    ## # … with 39 more rows, and 3 more variables: pups_dead_birth <dbl>,
+    ## #   pups_survive <dbl>, weight_change <dbl>
+
+str\_to\_lower - makes all values in that variable lowercase
+
+## `arrange`
+
+Let’s arrange the data.
+
+``` r
+arrange(litters_df, gd0_weight)
+```
+
+    ## # A tibble: 49 × 8
+    ##    group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>              <dbl>       <dbl>       <dbl>           <dbl>
+    ##  1 Mod7  #59                 17          33.4          19               8
+    ##  2 Mod7  #62                 19.5        35.9          19               7
+    ##  3 Con7  #85                 19.7        34.7          20               3
+    ##  4 Low8  #100                20          39.2          20               8
+    ##  5 Mod7  #103                21.4        42.1          19               9
+    ##  6 Mod7  #106                21.7        37.8          20               5
+    ##  7 Low8  #53                 21.8        37.2          20               8
+    ##  8 Low8  #4/84               21.8        35.2          20               4
+    ##  9 Low7  #85/2               22.2        38.5          20               8
+    ## 10 Mod7  #5/3/83/5-2         22.6        37            19               5
+    ## # … with 39 more rows, and 2 more variables: pups_dead_birth <dbl>,
+    ## #   pups_survive <dbl>
+
+``` r
+arrange(litters_df, desc(gd0_weight))
+```
+
+    ## # A tibble: 49 × 8
+    ##    group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>              <dbl>       <dbl>       <dbl>           <dbl>
+    ##  1 Mod8  #82/4               33.4        52.7          20               8
+    ##  2 Con7  #5/4/2/95/2         28.5        44.1          19               5
+    ##  3 Con8  #3/5/2/2/95         28.5        NA            20               8
+    ##  4 Mod8  #2/95/2             28.5        44.5          20               9
+    ##  5 Con8  #5/4/3/83/3         28          NA            19               9
+    ##  6 Mod7  #3/82/3-2           28          45.9          20               5
+    ##  7 Mod8  #7/110/3-2          27.5        46            19               8
+    ##  8 Con7  #1/2/95/2           27          42            19               8
+    ##  9 Mod8  #7/82-3-2           26.9        43.2          20               7
+    ## 10 Con7  #5/5/3/83/3-3       26          41.4          19               6
+    ## # … with 39 more rows, and 2 more variables: pups_dead_birth <dbl>,
+    ## #   pups_survive <dbl>
+
+``` r
+arrange(litters_df, gd_of_birth, gd0_weight) 
+```
+
+    ## # A tibble: 49 × 8
+    ##    group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+    ##    <chr> <chr>              <dbl>       <dbl>       <dbl>           <dbl>
+    ##  1 Mod7  #59                 17          33.4          19               8
+    ##  2 Mod7  #62                 19.5        35.9          19               7
+    ##  3 Mod7  #103                21.4        42.1          19               9
+    ##  4 Mod7  #5/3/83/5-2         22.6        37            19               5
+    ##  5 Mod7  #4/2/95/2           23.5        NA            19               9
+    ##  6 Low7  #112                23.9        40.5          19               6
+    ##  7 Mod7  #94/2               24.4        42.9          19               7
+    ##  8 Low8  #79                 25.4        43.8          19               8
+    ##  9 Con7  #5/5/3/83/3-3       26          41.4          19               6
+    ## 10 Con7  #1/2/95/2           27          42            19               8
+    ## # … with 39 more rows, and 2 more variables: pups_dead_birth <dbl>,
+    ## #   pups_survive <dbl>
+
+Organizes first by gd of birth and then gd0 weight
+
 Question - where does the dataframe go? if you use litters\_df, is that
 edited?
