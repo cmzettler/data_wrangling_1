@@ -29,6 +29,81 @@ select(litters_df, group, litter_number)
 select(litters_df, group, gd0_weight, gd18_weight)
 
 select(litters_df, group, gd0_weight:gd_of_birth)
+
+select(litters_df, -litter_number)
 ```
 
-select(litters, group, litter_number)
+can also do starts_with, ends_with, or contains to select certain variables 
+
+Can also rename variables with this: 
+
+```{r}
+select(litters_df, GROUP = group, litter_number)
+
+rename(litters_df, GROUP = group)
+
+select(litters_df, litter_number, everything())
+```
+
+listing litter_number first followed by everything () lets you move variables earlier/ later 
+
+relocate (litters_df, litter_number) <-- does the same thing
+
+Test exercise: 
+
+```{r}
+
+pups_df 
+
+select(pups_df, litter_number, sex, pd_ears)
+
+```
+
+If you selet only 1 column, it spits out a data frame with only one column 
+Does the same thing as pull
+
+```{r}
+select(litters_df, group)
+
+pull(litters_df, group)
+```
+
+## `filter`
+
+Let's get rid of rows
+
+```{r}
+filter(litters_df, gd_of_birth == 20)
+filter(litters_df, group == "Con7")
+
+filter(litters_df, gd0_weight < 23)
+
+filter(litters_df, pups_survive != 4)
+filter(litters_df, pups_survive == 4)
+
+filter(litters_df, !(group == "Con7"))
+
+filter(litters_df, group %in% c("Con7", "Con8"))
+
+filter(litters_df, group == "Con7", gd_of_birth == 20)
+```
+
+Two equal signs is a logical operator vs. one = assigns a variable 
+
+! before something is "not" 
+
+%in% is either this or this (is in this set of things in the c)
+
+& can also be , 
+
+| is or filter(litters_df, group == "Con7" | gd_of_birth == 20)
+
+Filter out NA/ missing values --> drop_na(litters_df) - drops all rows with any missing values OR drop_na(litters_df, gd_of_birth) - drops all rows with missing values for this variable 
+
+
+
+
+Question - where does the dataframe go? if you use litters_df, is that edited? 
+
+
+
