@@ -629,7 +629,8 @@ mutate(
     group = str_to_lower(group) 
 ) %>%
   drop_na(weight_change) %>% 
-  filter(group %in% c("con7", "con8"))
+  filter(group %in% c("con7", "con8")) %>%
+  select(litter_number, group, weight_change, everything())
 ```
 
     ## Rows: 49 Columns: 8
@@ -642,8 +643,6 @@ mutate(
     ## 
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-select(litter\_number, group, weight\_change, everything()) - FIX THIS
 
 You don’t have to repeat the data frame - that’s built in
 
