@@ -34,6 +34,8 @@ pulse_tidy =
     visit = factor(visit))
 ```
 
+don't ever use `gather()` only use `pivot_longer()`
+
 ## pivot_wider
 
 make up a results data table 
@@ -55,6 +57,8 @@ analysis_df %>%
 ```
 
 The knitr::kable function makes a nicer formatted table
+
+don't ever use `spread()` only use `pivot_wider()`
 
 ## bind_rows
 
