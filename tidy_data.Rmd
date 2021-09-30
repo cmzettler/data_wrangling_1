@@ -84,3 +84,36 @@ lotr_df =
   relocate(movie)
 ```
 
+Always use `bind_rows` (never `rbind()`)
+
+## joins
+
+Look at FAS data. This imports and cleans litters and pups data
+
+```{r}
+litters_df = 
+  read_csv("data/FAS_litters.csv") %>%
+  janitor::clean_names() %>%
+  separate(group, into = c("dose", "day_of_tx"), 3) %>%
+  relocate(litter_number) %>%
+  mutate(dose = str_to_lower(dose))
+
+pups_df = 
+  read_csv("data/FAS_pups.csv") %>%
+  janitor::clean_names() %>% 
+  mutate(sex = recode(sex, `1` = "male", `2` = "female"))
+  
+```
+
+3 = go to three letters in 
+
+Let's join these up! 
+
+Take my pups dataset that has outcome information and join some of the litters stuff 
+
+```{r}
+fas_df = 
+  left_join(pups_df, litters_df, by = "litter_number") %>% 
+  relocate(litter_number, dose, day_of_tx)
+```
+
